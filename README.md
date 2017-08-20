@@ -31,16 +31,16 @@ plt.style.use('seaborn-white')
 
 from clt_mc import ExploreCLT
 
-exponential = ExploreCLT(lambda n: np.random.normal(size=n))
+exponential = ExploreCLT(lambda n: np.random.exponential(size=n))
 exponential.report(sample_size=50, desired_alpha=0.05)
 ```
 
 This generates the following output:
-![example_plots](https://user-images.githubusercontent.com/26487650/29498411-a6db72aa-85b0-11e7-8d16-aef457bbd9d1.png)
-
 ```
 Desired alpha for a two-tailed test: 0.05
 Actual alpha for a two-tailed test: 0.0628937106289
 ```
+![example_plots](https://user-images.githubusercontent.com/26487650/29498411-a6db72aa-85b0-11e7-8d16-aef457bbd9d1.png)
+
 Based on the critical values for a desired `α` of 0.05, the actual `α` is 0.0629, which indicates a higher false positive rate. 
 The Normal probability plot shows that Normal approximation is poor at n=50.
