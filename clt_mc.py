@@ -38,12 +38,19 @@ class ExploreCLT:
         return t_list, sample_size
 
 
-    def empirical_cdf(self, data):
+    def empirical_cdf(self, raw_data):
         """
         Returns sorted data and the corresponding percentiles as a tuple.
         """
-        data.sort()
-        percentile = np.ones_like(data).cumsum() / (len(data) + 1)
+        data = np.sort(raw_data)
+
+        #percentile = np.ones_like(data).cumsum() / (len(data) + 1)
+        # [1/(N+1), ..., N/(N+1)]
+
+        percentile = (np.arange(len(data)) + 0.5)/ len(data)
+        # [0.5/N, ..., (N-0.5)/N]
+        # https://stackoverflow.com/a/11692365/588071
+
         return data, percentile
 
 
@@ -96,8 +103,7 @@ class ExploreCLT:
         i_upper = np.searchsorted(sorted_t_list, -desired_t, side='right')
 
         print('Desired alpha for a two-tailed test:', desired_alpha)
-        print('Actual alpha for a two-tailed test:', 
-              percentile[i_lower] + (1 - percentile[i_upper]))
+        print('Actual alpha for a two-tailed test:', percentile[i_lower] + (1 - percentile[i_upper]))
 
         # Another approach:
         '''
@@ -110,12 +116,12 @@ class ExploreCLT:
     def report(self, sample_size, desired_alpha, sim_reps=10000):
         """
         Runs all the functions and outputs the following:
+            * Actual test size α from the sampling distribution based on the critical values at
+              the desired α (for a two-tailed test)
             * Two plots:
                 1. The pdf (by KDE) of the sampling distribution of the t-statistics along with
                    the theoretical t-distribution
 	        2. The normal probability plot of the sample t-statistics
-            * Actual test size α from the sampling distribution based on the critical values for
-              the desired α (for a two-tailed test)
 
         Arguments:
             * sample_size: size of the samples drawn
@@ -123,5 +129,5 @@ class ExploreCLT:
             * sim_reps: number of times samples are drawn
         """
         sampling_distribution = self.sampling_mean(sample_size, sim_reps)
-        self.plot_dist_npp(sampling_distribution)
         self.find_alpha(sampling_distribution, desired_alpha)
+        self.plot_dist_npp(sampling_distribution)

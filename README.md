@@ -1,22 +1,21 @@
 # Exploring CLT via Monte Carlo Simulation
 
 For a single sample (consisting of `n` independent observations), the Central Limit Theorem (CLT) is typically invoked to argue that the sample mean approximately follows a Normal distribution.
-But exactly how good is this approximation? 
+But exactly how good is this approximation?
 
-To answer this question, we can simulate the frequentist thought experiment of repeated sampling.
-This can be achieved by Monte Carlo simulation, where samples are repeatedly drawn from a known parent population and the t-statistic is computed for each sample. 
-With this simulated sampling distribution of the t-statistics in hand, we can evaluate the properties of the sample mean estimator.
-
+To answer this question (i.e., to study the finite-sample approximation), I simulate the frequentist thought experiment of repeated sampling.
+This can be achieved by Monte Carlo simulation, where samples of a given size are repeatedly drawn from a known parent population and the t-statistic is computed for each sample. 
+With this simulated sampling distribution of the t-statistics in hand, I evaluate the properties of the sample mean estimator.
 
 This code provides a selection of methods to evaluate the Normal approximation for different population distributions and sample sizes.
 
 The `ExploreCLT` class has a `report` method that outputs the following:
 
+* Actual test size `α` from the sampling distribution based on the critical values for the desired `α` (for a two-tailed test)
 * Two plots:
 	1. The pdf (by KDE) of the sampling distribution of the t-statistics along with the theoretical t-distribution 
 		* The Kullback-Leibler divergence from the theoretical distribution to the sampling distribution is also calculated
 	2. The normal probability plot of the sample t-statistics
-* Actual test size `α` from the sampling distribution based on the critical values for the desired `α` (for a two-tailed test)
 
 
 ## Example 
@@ -26,8 +25,8 @@ Let's consider a case where the parent population is an exponential distribution
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
 %matplotlib inline
+plt.style.use('seaborn-white')
 
 from clt_mc import ExploreCLT
 
