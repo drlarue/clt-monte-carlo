@@ -20,13 +20,13 @@ source_text = '''
 '''
 
 app.layout = html.Div(children=[
-    html.H1(children='Exploring CLT via Monte Carlo Simulation'),
+    html.H1(children='Explore the CLT via Monte Carlo Simulation'),
 
     html.Div(children='''
-        For a single sample (consisting of n independent observations), 
-        the Central Limit Theorem (CLT) is typically invoked to argue that 
-        the sample mean approximately follows a Normal distribution. 
-        But exactly how good is this approximation?
+        Play around with this Monte Carlo simulator to see how good the Normal approximation is 
+        for different population distributions and sample sizes. 
+        See how the sampling distribution of the mean converges to a Normal distribution 
+        as the sample size grows large!
     '''),
 
     html.Div(children=[
@@ -40,7 +40,7 @@ app.layout = html.Div(children=[
 
         html.Label(' Sample size: '),
         html.Br(),
-        dcc.Input(id='input-sample_size', min=5, value=50, type='number'),
+        dcc.Input(id='input-sample_size', min=2, value=30, type='number'),
         html.Br(),
 
         html.Label(' Desired α (two-tailed test): '),

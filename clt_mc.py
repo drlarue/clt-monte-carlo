@@ -99,6 +99,7 @@ class ExploreCLT:
         t_grid = np.linspace(-3.5, 3.5, len(t_list))
         t_dist = stats.t.pdf(t_grid, df=sample_size-2) # theoretical t-distribution
 
+        # Compute the Kullback-Leibler divergence
         kl_divergence = stats.entropy(stats.gaussian_kde(t_list).pdf(t_grid), t_dist)
 
         theo_q = stats.t.ppf(percentile, df=sample_size-2) # theoretical quantiles
@@ -121,7 +122,7 @@ class ExploreCLT:
 
         # right plot
         trace3 = go.Scatter(x=theo_q, y=sorted_t_list, mode='markers', showlegend=False,
-                            marker=dict(size=3, color='#d9d9d9'))
+                            marker=dict(size=3, color='#b5b5b5'))
         trace4 = go.Scatter(x=[-4, 4], y=[-4, 4], mode='lines', showlegend=False,
                             line=dict(width=1, color='#d70504'))
 
